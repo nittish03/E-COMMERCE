@@ -1,24 +1,87 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { useMemo } from "react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { Toaster } from "react-hot-toast";
+import { themeSettings } from "./theme";
+import Navbar from "./components/Navbar";
+import Container from "./components/Container"
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Footer from "./components/Footer";
 
 function App() {
+  const theme = useMemo(() => createTheme(themeSettings()), []);
+  const apiKey = process.env.REACT_APP_API_KEY;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navbar />
+        <Toaster />
+        <Routes>
+            <Route
+              exact
+              path="/"
+              element={<Login key="/"></Login>}
+            ></Route>
+            <Route
+              exact
+              path="/home"
+              element={<Container key="home"></Container>}
+            ></Route>
+            <Route
+              exact
+              path="/jewelery"
+              element={
+                <Container key="jewelery" category="jewelery"></Container>
+              }
+            ></Route>
+            <Route
+              exact
+              path="/electronics"
+              element={
+                <Container key="electronics" category="electronics"></Container>
+              }
+            ></Route>
+            <Route
+              exact
+              path="men clothing"
+              element={
+                <Container
+                  key="men clothing"
+                  category="men's clothing"
+                ></Container>
+              }
+            ></Route>
+            <Route
+              exact
+              path="/women clothing"
+              element={
+                <Container
+                  key="women clothing"
+                  category="women's clothing"
+                ></Container>
+              }
+            ></Route>
+            <Route
+              exact
+              path="/login"
+              element={<Login key="log in"></Login>}
+            ></Route>
+            <Route
+              exact
+              path="/register"
+              element={<Register key="sign up"></Register>}
+            ></Route>
+          </Routes>
+
+        <Footer></Footer>
+
+      </ThemeProvider>
+    </>
   );
 }
 
